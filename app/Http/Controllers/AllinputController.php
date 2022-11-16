@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Applicant;
-use Illuminate\Http\Request;
+use App\Models\Allinput;
+use App\Http\Requests\StoreAllinputRequest;
+use App\Http\Requests\UpdateAllinputRequest;
 
-class ApplicantController extends Controller
+class AllinputController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,9 @@ class ApplicantController extends Controller
      */
     public function index()
     {
-        $applicants = Applicant::all();
-        return view('applicants.index', compact('applicants'));
+        $allinput = Allinput::latest()->paginate(5);
+
+        return view('allinput.index', compact('allinput'));
     }
 
     /**
@@ -25,16 +27,16 @@ class ApplicantController extends Controller
      */
     public function create()
     {
-        return view('applicants.create');
+        return view('allinput.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreAllinputRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAllinputRequest $request)
     {
         //
     }
@@ -42,10 +44,10 @@ class ApplicantController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Applicant  $applicant
+     * @param  \App\Models\Allinput  $allinput
      * @return \Illuminate\Http\Response
      */
-    public function show(Applicant $applicant)
+    public function show(Allinput $allinput)
     {
         //
     }
@@ -53,10 +55,10 @@ class ApplicantController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Applicant  $applicant
+     * @param  \App\Models\Allinput  $allinput
      * @return \Illuminate\Http\Response
      */
-    public function edit(Applicant $applicant)
+    public function edit(Allinput $allinput)
     {
         //
     }
@@ -64,11 +66,11 @@ class ApplicantController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Applicant  $applicant
+     * @param  \App\Http\Requests\UpdateAllinputRequest  $request
+     * @param  \App\Models\Allinput  $allinput
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Applicant $applicant)
+    public function update(UpdateAllinputRequest $request, Allinput $allinput)
     {
         //
     }
@@ -76,10 +78,10 @@ class ApplicantController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Applicant  $applicant
+     * @param  \App\Models\Allinput  $allinput
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Applicant $applicant)
+    public function destroy(Allinput $allinput)
     {
         //
     }

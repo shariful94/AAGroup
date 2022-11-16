@@ -1,6 +1,9 @@
 <?php
 
-use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\AllinputController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,13 +18,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('/applicant/create');
+    return view('welcome');
 });
 
-// applicant
-Route::get('applicant', [ApplicantController::class, 'index']);
-Route::get('applicant/create', [ApplicantController::class, 'create']);
-Route::post('applicant', [ApplicantController::class, 'store'])->name('applicant.store');
-Route::get('applicant/{applicant}/edit', [ApplicantController::class, 'edit']);
-Route::put('applicant/{applicant}', [ApplicantController::class, 'update']);
-Route::delete('applicant/{applicant}', [ApplicantController::class, 'destroy']);
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
+
+Route::middleware(['auth'])->group(function () {
+
+    //dashboard
+    Route::get('dashboard', [DashboardController::class, 'index']);
+
+    // category
+    Route::resource("/category", CategoryController::class);
+
+    // tag
+    Route::resource("/tag", TagController::class);
+
+    // all input
+    Route::resource("/allinput", AllinputController::class);
+
+});
+
+require __DIR__.'/auth.php';
