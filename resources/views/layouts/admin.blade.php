@@ -15,9 +15,8 @@
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
 	<title>{{ config('app.name', 'Laravel') }} | @yield('pagetitle')</title>
-
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="{{url('assets/css/app.css')}}" rel="stylesheet">
-	{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"> --}}
 	<link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -27,14 +26,20 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="{{url('dashboard')}}"><span class="align-middle">BlogSite</span></a>
+				<a class="sidebar-brand" href="{{url('dashboard')}}"><span class="align-middle">AA Group</span></a>
 				<ul class="sidebar-nav">
 					<li class="sidebar-header">Pages</li>
 					<li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }}">
 						<a class="sidebar-link" href="{{url('dashboard')}}"><i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span></a>
 					</li>
-					<li class="sidebar-item {{ Request::is('category') ? 'active' : '' }}">
-						<a class="sidebar-link" href="{{url('category')}}"><i class="align-middle" data-feather="grid"></i><span class="align-middle">Category</span></a>
+					<li class="sidebar-item {{ Request::is('division') ? 'active' : '' }}">
+						<a class="sidebar-link" href="{{url('division')}}"><i class="align-middle" data-feather="grid"></i><span class="align-middle">Division</span></a>
+					</li>
+					<li class="sidebar-item {{ Request::is('district') ? 'active' : '' }}">
+						<a class="sidebar-link" href="{{url('district')}}"><i class="align-middle" data-feather="grid"></i><span class="align-middle">District</span></a>
+					</li>
+					<li class="sidebar-item {{ Request::is('upozila') ? 'active' : '' }}">
+						<a class="sidebar-link" href="{{url('upozila')}}"><i class="align-middle" data-feather="grid"></i><span class="align-middle">Upozila</span></a>
 					</li>
 					<li class="sidebar-item {{ Request::is('tag') ? 'active' : '' }}">
 						<a class="sidebar-link" href="{{url('tag')}}"><i class="align-middle" data-feather="at-sign"></i> <span class="align-middle">Tags</span></a>

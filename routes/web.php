@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AllinputController;
+use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,20 +24,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
+// applicant
+Route::get('applicant', [ApplicantController::class, 'index']);
+Route::get('applicant/create', [ApplicantController::class, 'create'])-> name('applicant.create');
+Route::post('applicant', [ApplicantController::class, 'store'])->name('applicant.store');
+Route::get('applicant/{applicant}/edit', [ApplicantController::class, 'edit']);
+Route::put('applicant/{applicant}', [ApplicantController::class, 'update']);
+Route::delete('applicant/{applicant}', [ApplicantController::class, 'destroy']);
 
 Route::middleware(['auth'])->group(function () {
 
     //dashboard
     Route::get('dashboard', [DashboardController::class, 'index']);
 
-    // category
-    Route::resource("/category", CategoryController::class);
+    //division
+    Route::resource("/division", DivisionController::class);
 
-    // tag
-    Route::resource("/tag", TagController::class);
+    // district
+    Route::resource("/district", DistrictController::class);
 
     // all input
     Route::resource("/allinput", AllinputController::class);
