@@ -86,7 +86,7 @@
                         ]
                         , null, ['required', 'class'=>'form-control', 'id'=>'university', 'placeholder'=>'Select']) !!}   
                     </div>
-                    <div class="col-sm-3 mb-3 mb-sm-0">
+                    <div class="col-sm-2 mb-3 mb-sm-0">
                         {!! Form::label('board', 'Board', ['class' => 'form-label']) !!}
                         {!! Form::select('board', 
                         [
@@ -101,11 +101,16 @@
                         ]
                         , null, ['required', 'class'=>'form-control', 'id'=>'board', 'placeholder'=>'Select']) !!}   
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2 mb-3 mb-sm-0">
                         {!! Form::label('gpa', 'GPA', ['class' => 'form-label']) !!}
                         {!! Form::text('gpa', null, ['required', 'class'=>'form-control', 'id'=>'result', 'placeholder'=>'gpa']) !!}
                     </div>
+                    <div class="col-sm-2">
+                        {!! Form::label('action', 'Action', ['class' => 'form-label']) !!}
+                        <button class="btn btn-primary" id="addMoreButton">+ Add More</button>
+                    </div>
                 </div>
+                <div id="addMore"></div>
                 <div class="form-group row mb-3">
                     <div class="col-sm-6 mb-3 mb-sm-0">
                         {!! Form::label('photo', 'Applicant Photo', ['class' => 'form-label']) !!}
@@ -126,6 +131,21 @@
                         {{ Form::label('no', 'No', ['class' => 'form-check-label']) }}
                     </div>
                 </div>
+                <div class="form-group row mb-3" id="training">
+                    <div class="col-sm-5 mb-3 mb-sm-0">
+                        {!! Form::label('training_name', 'Training Name', ['class' => 'form-label']) !!}
+                        {!! Form::text('training_name', null, ['required', 'class'=>'form-control', 'id'=>'training_name', 'placeholder'=>'Training Name']) !!}
+                    </div>
+                    <div class="col-sm-5 mb-3 mb-sm-0">
+                        {!! Form::label('training_details', 'Training Details', ['class' => 'form-label']) !!}
+                        {!! Form::text('training_details', null, ['required', 'class'=>'form-control', 'id'=>'training_details', 'placeholder'=>'Training Details']) !!}
+                    </div>
+                    <div class="col-sm-2">
+                        {!! Form::label('action', 'Action', ['class' => 'form-label']) !!}
+                        <button class="btn btn-primary" id="addMoreTraining">+ Add More</button>
+                    </div>
+                </div>
+                <div id="addTraining"></div>
 
                 <div class="form-group">
                     {!! Form::submit('Submit Form', ['class'=>'btn btn-info btn-block']) !!}
@@ -186,6 +206,97 @@
                 });
             });
         });
+        // add more button
+        $(document).ready(function(){
+            var i = 1;
+            $("#addMoreButton").click(function(){
+                i++;
+                $("#addMore").append(`
+                    <div class="form-group row mb-3" id="row${i}">
+                        <div class="col-sm-3 mb-3 mb-sm-0">
+                            {!! Form::select('exam[]', 
+                            [
+                                'ssc' => 'SSC',
+                                'hsc' => 'HSC',
+                                'honours' => 'Honours',
+                                'masters' => 'Masters',
+                            ]
+                            , null, ['required', 'class'=>'form-control', 'id'=>'exam', 'placeholder'=>'Select']) !!}
+                        </div>
+                        <div class="col-sm-3 mb-3 mb-sm-0">
+                            {!! Form::select('university[]', 
+                            [
+                                'du' => 'Dhaka University',
+                                'ru' => 'Rajshahi University',
+                                'ku' => 'Khulna University',
+                                'cu' => 'Chittagong University',
+                                'nu' => 'National University',
+                            ]
+                            , null, ['required', 'class'=>'form-control', 'id'=>'university', 'placeholder'=>'Select']) !!}   
+                        </div>
+                        <div class="col-sm-2 mb-3 mb-sm-0">
+                            {!! Form::select('board[]', 
+                            [
+                                'dha' => 'Dhaka',
+                                'raj' => 'Rajshahi',
+                                'chu' => 'Chittagong',
+                                'com' => 'Comilla',
+                                'din' => 'Dinajpur',
+                                'bar' => 'Barisal',
+                                'syl' => 'Sylhet',
+                                'jess' => 'Jessore',
+                            ]
+                            , null, ['required', 'class'=>'form-control', 'id'=>'board', 'placeholder'=>'Select']) !!}   
+                        </div>
+                        <div class="col-sm-2 mb-3 mb-sm-0">
+                            {!! Form::text('gpa[]', null, ['required', 'class'=>'form-control', 'id'=>'result', 'placeholder'=>'gpa']) !!}
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-danger remove" id="${i}">- Remove</button>
+                        </div>
+                    </div>
+                `);
+            });
+            $(document).on('click', '.remove', function(){
+                var button_id = $(this).attr("id");
+                $("#row"+button_id+"").remove();
+            });
+        });
+        // yes button click
+        $(document).ready(function(){
+            $("#training").hide();
+            $("#yes").click(function(){
+                $("#training").show();
+            });
+            $("#no").click(function(){
+                $("#training").hide();
+            });
+        });
+        // add more training
+        $(document).ready(function(){
+            var i = 1;
+            $("#addMoreTraining").click(function(){
+                i++;
+                $("#addTraining").append(`
+                    <div class="form-group row mb-3" id="row${i}">
+                        <div class="col-sm-5 mb-3 mb-sm-0">
+                        {!! Form::text('training_name', null, ['required', 'class'=>'form-control', 'id'=>'training_name', 'placeholder'=>'Training Name']) !!}
+                    </div>
+                    <div class="col-sm-5 mb-3 mb-sm-0">
+                        {!! Form::text('training_details', null, ['required', 'class'=>'form-control', 'id'=>'training_details', 'placeholder'=>'Training Details']) !!}
+                    </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-danger remove" id="${i}">- Remove</button>
+                        </div>
+                    </div>
+                `);
+            });
+            $(document).on('click', '.remove', function(){
+                var button_id = $(this).attr("id");
+                $("#row"+button_id+"").remove();
+            });
+        });
+
     </script>
 </body>
 </html>
