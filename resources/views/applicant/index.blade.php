@@ -24,26 +24,48 @@
                 <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>District</th>
+                    <th>Email</th>
                     <th>Division</th>
+                    <th>District</th>
+                    <th>Upozila</th>
+                    <th>Address</th>
+                    <th>Language</th>
+                    <th>Exam</th>
+                    <th>University</th>
+                    <th>Board</th>
+                    <th>GPA</th>
+                    <th>Photo</th>
+                    <th>CV</th>
+                    <th>Training</th>
                     <th width="180px">Action</th>
                 </tr>
                 @foreach ($applicants as $applicant)
                     <tr>
                         <td>{{ $applicant->id }}</td>
                         <td>{{ $applicant->name }}</td>
-                        <td>{{ $applicant->district->name }}</td>
+                        <td>{{ $applicant->email }}</td>
                         <td>{{ $applicant->division->name }}</td>
-                        <td class="d-flex justify-content-between">
-                            {!! Form::open(['method' => 'delete','route' => ['applicant.destroy', $applicant->id]]) !!}
-                                <button onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm btn-circle">Delete</button>
-                            {!! Form::close() !!}
-                            <a href="{{url('applicant/'.$applicant->id.'/edit')}}" class="btn btn-primary btn-circle btn-sm" title="Edit">
-                                Edit
-                            </a>
-                            <a href="{{url('applicant/'.$applicant->id)}}" class="btn btn-primary btn-circle btn-sm" title="View">
-                                View
-                            </a>
+                        <td>{{ $applicant->district->name }}</td>
+                        <td>{{ $applicant->upozila->name }}</td>
+                        <td>{{ $applicant->address }}</td>
+                        <td>{{ $applicant->language }}</td>
+                        <td>{{ $applicant->exam }}</td>
+                        <td>{{ $applicant->university }}</td>
+                        <td>{{ $applicant->board }}</td>
+                        <td>{{ $applicant->gpa }}</td>
+                        <td>
+                            <img src="{{url(Storage::url($applicant->photo))}}" class="image" alt="image" width="50px">
+                        </td>
+                        <td><a href="{{url(Storage::url($applicant->cv))}}" target="_blank">View CV</a></td>
+                        <td>{{ $applicant->training }}</td>
+                        <td>
+                            <form action="{{ route('applicant.destroy',$applicant->id) }}" method="POST">
+                                <a class="btn btn-info btn-sm" href="{{ route('applicant.show',$applicant->id) }}">Show</a>
+                                <a class="btn btn-primary btn-sm" href="{{ route('applicant.edit',$applicant->id) }}">Edit</a>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

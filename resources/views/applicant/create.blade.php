@@ -51,13 +51,13 @@
                 <div class="form-group row mb-3">
                     <div class="col-sm-12 mb-3 mb-sm-0">
                     <p>Programming Language:</p>
-                    {!! Form::checkbox('language', '1', false, ['class'=>'form-check-input', 'id' => 'php']) !!}
+                    {!! Form::checkbox('language', 'php', false, ['class'=>'form-check-input', 'id' => 'php']) !!}
                     {!! Form::label('php', 'PHP', ['class' => 'form-label']) !!}
                 
-                    {!! Form::checkbox('language', '2', false, ['class'=>'form-check-input', 'id' => 'python']) !!}
+                    {!! Form::checkbox('language', 'python', false, ['class'=>'form-check-input', 'id' => 'python']) !!}
                     {!! Form::label('python', 'Python', ['class' => 'form-label']) !!}
                 
-                    {!! Form::checkbox('language', '3', false, ['class'=>'form-check-input', 'id' => 'java']) !!}
+                    {!! Form::checkbox('language', 'java', false, ['class'=>'form-check-input', 'id' => 'java']) !!}
                     {!! Form::label('java', 'Java', ['class' => 'form-label']) !!}
                     </div>
                 </div>
@@ -102,8 +102,8 @@
                         , null, ['required', 'class'=>'form-control', 'id'=>'board', 'placeholder'=>'Select']) !!}   
                     </div>
                     <div class="col-sm-3">
-                        {!! Form::label('result', 'Result', ['class' => 'form-label']) !!}
-                        {!! Form::text('result', null, ['required', 'class'=>'form-control', 'id'=>'result', 'placeholder'=>'Result']) !!}
+                        {!! Form::label('gpa', 'GPA', ['class' => 'form-label']) !!}
+                        {!! Form::text('gpa', null, ['required', 'class'=>'form-control', 'id'=>'result', 'placeholder'=>'gpa']) !!}
                     </div>
                 </div>
                 <div class="form-group row mb-3">
@@ -119,10 +119,10 @@
                 <div class="form-group row mb-3">
                     <div class="col-sm-12 mt-3 mb-sm-0">
                         <p>Training:</p>
-                        {{ Form::radio('training', 1, '', ['class'=>'form-check-input', 'id' => 'yes']) }}
+                        {{ Form::radio('training', 'yes', '', ['class'=>'form-check-input', 'id' => 'yes']) }}
                         {{ Form::label('yes', 'Yes', ['class' => 'form-check-label']) }}
                     
-                        {{ Form::radio('training', 2, '', ['class'=>'form-check-input', 'id' => 'no']) }}
+                        {{ Form::radio('training', 'no', '', ['class'=>'form-check-input', 'id' => 'no']) }}
                         {{ Form::label('no', 'No', ['class' => 'form-check-label']) }}
                     </div>
                 </div>

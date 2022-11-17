@@ -26,12 +26,8 @@ Route::get('/', function () {
 });
 
 // applicant
-Route::get('applicant', [ApplicantController::class, 'index'])->name('applicant.index');
 Route::get('applicant/create', [ApplicantController::class, 'create'])-> name('applicant.create');
 Route::post('applicant', [ApplicantController::class, 'store'])->name('applicant.store');
-Route::get('applicant/{applicant}/edit', [ApplicantController::class, 'edit']);
-Route::put('applicant/{applicant}', [ApplicantController::class, 'update']);
-Route::delete('applicant/{applicant}', [ApplicantController::class, 'destroy']);
 
 Route::get('get-districts/{id}', [ApplicantController::class, 'getDistricts']);
 Route::get('get-upozilas/{id}', [ApplicantController::class, 'getUpozilas']);
@@ -50,8 +46,12 @@ Route::middleware(['auth'])->group(function () {
     // upozila
     Route::resource("/upozila", UpozilaController::class);
 
-    // all input
-    Route::resource("/allinput", AllinputController::class);
+    // applicant
+    Route::get('applicant', [ApplicantController::class, 'index'])->name('applicant.index');
+    Route::get('applicant/{id}', [ApplicantController::class, 'show'])->name('applicant.show');
+    Route::get('applicant/{applicant}/edit', [ApplicantController::class, 'edit'])->name('applicant.edit');
+    Route::put('applicant/{applicant}', [ApplicantController::class, 'update'])->name('applicant.update');
+    Route::delete('applicant/{applicant}', [ApplicantController::class, 'destroy'])-> name('applicant.destroy');
 
 });
 

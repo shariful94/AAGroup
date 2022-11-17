@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('exam');
             $table->string('university');
             $table->string('board');
-            $table->string('result');
+            $table->decimal('gpa', 3, 2);
             $table->string('photo');
             $table->string('cv');
             $table->string('training');

@@ -19,7 +19,7 @@ class ApplicantController extends Controller
      */
     public function index()
     {
-        $applicants = Applicant::paginate(10);
+        $applicants = Applicant::with('division', 'district', 'upozila')->paginate(10);
         return view('applicant.index', compact('applicants'));
     }
 
@@ -44,6 +44,10 @@ class ApplicantController extends Controller
      */
     public function store(Request $request)
     {
+        // language checkbox value store
+        // $language = $request->language;
+        // dd($language);
+
         $request->validate([
             'name' => 'required',
             'email' => 'required',
@@ -55,7 +59,7 @@ class ApplicantController extends Controller
             'exam' => 'required',
             'university' => 'required',
             'board' => 'required',
-            'result' => 'required',
+            'gpa' => 'required',
             'photo' => 'required',
             'cv' => 'required',
             'training' => 'required',
@@ -80,6 +84,7 @@ class ApplicantController extends Controller
         // $cv = Image::make($storecvpath);
         // $cv->save($storecvpath);
 
+
         $applicant = new Applicant([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
@@ -91,13 +96,13 @@ class ApplicantController extends Controller
             'exam' => $request->get('exam'),
             'university' => $request->get('university'),
             'board' => $request->get('board'),
-            'result' => $request->get('result'),
+            'gpa' => $request->get('gpa'),
             'photo' => $path,
             'cv' => $cvpath,
             'training' => $request->get('training'),
         ]);
         $applicant->save();
-        return redirect('/applicant')->with('success', 'Applicant saved!');
+        return redirect('/applicant/create')->with('success', 'Applicanttion submitted successfully!');
     }
 
     /**
