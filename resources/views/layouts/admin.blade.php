@@ -41,18 +41,8 @@
 					<li class="sidebar-item {{ Request::is('upozila') ? 'active' : '' }}">
 						<a class="sidebar-link" href="{{url('upozila')}}"><i class="align-middle" data-feather="grid"></i><span class="align-middle">Upozila</span></a>
 					</li>
-					<li class="sidebar-item {{ Request::is('tag') ? 'active' : '' }}">
-						<a class="sidebar-link" href="{{url('tag')}}"><i class="align-middle" data-feather="at-sign"></i> <span class="align-middle">Tags</span></a>
-					</li>
-					<li class="sidebar-item {{ Request::is('allinput') ? 'active' : '' }}">
-						<a class="sidebar-link" href="{{url('allinput')}}"><i class="align-middle" data-feather="at-sign"></i> <span class="align-middle">All Input</span></a>
-					</li>
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{url('post')}}"><i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Posts</span></a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="#"><i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span></a>
+					<li class="sidebar-item {{ Request::is('applicant') ? 'active' : '' }}">
+						<a class="sidebar-link" href="{{url('applicant')}}"><i class="align-middle" data-feather="at-sign"></i> <span class="align-middle">Applicant</span></a>
 					</li>
 				</ul>
 			</div>

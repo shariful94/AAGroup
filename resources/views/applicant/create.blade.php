@@ -14,6 +14,8 @@
                 <h6 class="m-0 font-weight-bold text-info">Applicant Form</h6>
             </div>
             <div class="card-body">
+                @include('partial.flash')
+                @include("partial.error")
                 {{Form::open(['route' => 'applicant.store','class'=>'user','enctype'=>'multipart/form-data'])}}
                 <div class="form-group row mb-3">
                     <div class="col-sm-6 mb-3 mb-sm-0">
@@ -28,16 +30,16 @@
                 <div class="form-group row mb-3">
                     <p>Address:</p>
                     <div class="col-sm-4 mb-3 mb-sm-0">
-                        {!! Form::label('division', 'Division', ['class' => 'form-label']) !!}
-                        {!! Form::select('division', ['1' => 'One', '2' => 'Two', '3' => 'Three'], null, ['required', 'class'=>'form-control', 'id'=>'division', 'placeholder'=>'Select']) !!}   
+                        {!! Form::label('division_id', 'Division', ['class' => 'form-label']) !!}
+                        {!! Form::select('division_id', $divisions, null, ['required', 'class'=>'form-control', 'id'=>'division_id', 'placeholder'=>'Select Division']) !!}
                     </div>
                     <div class="col-sm-4 mb-3 mb-sm-0">
-                        {!! Form::label('district', 'District', ['class' => 'form-label']) !!}
-                        {!! Form::select('district', ['1' => 'One', '2' => 'Two', '3' => 'Three'], null, ['required', 'class'=>'form-control', 'id'=>'district', 'placeholder'=>'Select']) !!}   
+                        {!! Form::label('district_id', 'District', ['class' => 'form-label']) !!}
+                        {!! Form::select('district_id', $districts, null, ['required', 'class'=>'form-control', 'id'=>'district_id', 'placeholder'=>'Select District']) !!}
                     </div>
                     <div class="col-sm-4">
-                        {!! Form::label('upozila', 'Upozila', ['class' => 'form-label']) !!}
-                        {!! Form::select('upozila', ['1' => 'One', '2' => 'Two', '3' => 'Three'], null, ['required', 'class'=>'form-control', 'id'=>'upozila', 'placeholder'=>'Select']) !!}
+                        {!! Form::label('upozila_id', 'Upazila', ['class' => 'form-label']) !!}
+                        {!! Form::select('upozila_id', $upozilas, null, ['required', 'class'=>'form-control', 'id'=>'upozila_id', 'placeholder'=>'Select Upazila']) !!}
                     </div>
                 </div>
                 <div class="form-group row mb-3">
@@ -49,13 +51,13 @@
                 <div class="form-group row mb-3">
                     <div class="col-sm-12 mb-3 mb-sm-0">
                     <p>Programming Language:</p>
-                    {!! Form::checkbox('checkbox', '1', false, ['class'=>'form-check-input', 'id' => 'php']) !!}
+                    {!! Form::checkbox('language', '1', false, ['class'=>'form-check-input', 'id' => 'php']) !!}
                     {!! Form::label('php', 'PHP', ['class' => 'form-label']) !!}
                 
-                    {!! Form::checkbox('checkbox', '2', false, ['class'=>'form-check-input', 'id' => 'python']) !!}
+                    {!! Form::checkbox('language', '2', false, ['class'=>'form-check-input', 'id' => 'python']) !!}
                     {!! Form::label('python', 'Python', ['class' => 'form-label']) !!}
                 
-                    {!! Form::checkbox('checkbox', '3', false, ['class'=>'form-check-input', 'id' => 'java']) !!}
+                    {!! Form::checkbox('language', '3', false, ['class'=>'form-check-input', 'id' => 'java']) !!}
                     {!! Form::label('java', 'Java', ['class' => 'form-label']) !!}
                     </div>
                 </div>
@@ -101,7 +103,7 @@
                     </div>
                     <div class="col-sm-3">
                         {!! Form::label('result', 'Result', ['class' => 'form-label']) !!}
-                        {!! Form::select('result', ['1' => 'One', '2' => 'Two', '3' => 'Three'], null, ['required', 'class'=>'form-control', 'id'=>'result', 'placeholder'=>'Select']) !!}
+                        {!! Form::text('result', null, ['required', 'class'=>'form-control', 'id'=>'result', 'placeholder'=>'Result']) !!}
                     </div>
                 </div>
                 <div class="form-group row mb-3">
@@ -134,5 +136,56 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{url('assets/js/jquery-3.6.0.min.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            function createselect(ob){
+                $("#district_id").html("");
+                let html = "";
+                for (const key in ob) {
+                    if (Object.hasOwnProperty.call(ob, key)) {
+                        // const element = ob[key];
+                        html += `<option value="${key}">${ob[key]}</option>`;
+                    }
+                }
+                $("#district_id").html(html);
+            }
+            $("#division_id").change(function(){
+                let URL = "{{url('get-districts')}}";
+                $.ajax({
+                    type : "GET",
+                    url: URL + "/" + $(this).val(),
+                    data : "data",
+                    dataType: "json",
+                    success: function (response) {
+                        createselect(response);
+                    }
+                });
+            });
+            function createupazila(ob){
+                $("#upozila_id").html("");
+                let html = "";
+                for (const key in ob) {
+                    if (Object.hasOwnProperty.call(ob, key)) {
+                        // const element = ob[key];
+                        html += `<option value="${key}">${ob[key]}</option>`;
+                    }
+                }
+                $("#upozila_id").html(html);
+            }
+            $("#district_id").change(function(){
+                let URL = "{{url('get-upozilas')}}";
+                $.ajax({
+                    type : "GET",
+                    url: URL + "/" + $(this).val(),
+                    data : "data",
+                    dataType: "json",
+                    success: function (response) {
+                        createupazila(response);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

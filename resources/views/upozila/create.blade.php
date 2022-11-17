@@ -1,23 +1,23 @@
 @extends('layouts.admin')
 
 @section('pagetitle')
-    Add Tag
+    Add Upozila
 @endsection
 
 @section('content')
     <div class="card card-hover shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Add Tag</h6>
-            <a href="{{url('tag')}}" class="btn btn-primary btn-circle btn-sm" title="Back to Tag List">
+            <h6 class="m-0 font-weight-bold text-primary">Add Upozila</h6>
+            <a href="{{url('upozila')}}" class="btn btn-primary btn-circle btn-sm" title="Back to Upozila List">
                 <i class="fas fa-arrow-left"></i>
             </a>
         </div>
         <div class="card-body">
-            {{Form::open(['route' => 'tag.store','class'=>'user','enctype'=>'multipart/form-data'])}}
-            @include('tag.form')
+            {{Form::open(['route' => 'upozila.store','class'=>'user','enctype'=>'multipart/form-data'])}}
+            @include('upozila.form')
 
             <div class="form-group">
-                {!! Form::submit('Add Tag', ['class'=>'btn btn-primary btn-block']) !!}
+                {!! Form::submit('Add Upozila', ['class'=>'btn btn-primary btn-block']) !!}
             </div>
             {!! Form::close() !!}
         </div>

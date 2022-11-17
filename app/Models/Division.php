@@ -22,4 +22,9 @@ class Division extends Model
     {
         return $this->hasMany(Upozila::class);
     }
+
+    public function applicants()
+    {
+        return $this->hasMany(Applicant::class);
+    }
 }

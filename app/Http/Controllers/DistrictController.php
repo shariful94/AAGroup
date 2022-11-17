@@ -59,7 +59,7 @@ class DistrictController extends Controller
      */
     public function show(District $district)
     {
-        //
+        return view('district.show', compact('district'));
     }
 
     /**
@@ -70,7 +70,8 @@ class DistrictController extends Controller
      */
     public function edit(District $district)
     {
-        //
+        $divisions = Division::pluck('name', 'id');
+        return view('district.edit', compact('district'))->with('divisions', $divisions);
     }
 
     /**
@@ -82,7 +83,16 @@ class DistrictController extends Controller
      */
     public function update(Request $request, District $district)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'division_id' => 'required',
+        ]);
+
+        $district->name = $request->name;
+        $district->division_id = $request->division_id;
+        $district->save();
+
+        return redirect()->route('district.index')->with('success', 'District updated successfully.');
     }
 
     /**
@@ -93,6 +103,8 @@ class DistrictController extends Controller
      */
     public function destroy(District $district)
     {
-        //
+        $district->delete();
+
+        return redirect()->route('district.index')->with('success', 'District deleted successfully.');
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\UpozilaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,12 +26,15 @@ Route::get('/', function () {
 });
 
 // applicant
-Route::get('applicant', [ApplicantController::class, 'index']);
+Route::get('applicant', [ApplicantController::class, 'index'])->name('applicant.index');
 Route::get('applicant/create', [ApplicantController::class, 'create'])-> name('applicant.create');
 Route::post('applicant', [ApplicantController::class, 'store'])->name('applicant.store');
 Route::get('applicant/{applicant}/edit', [ApplicantController::class, 'edit']);
 Route::put('applicant/{applicant}', [ApplicantController::class, 'update']);
 Route::delete('applicant/{applicant}', [ApplicantController::class, 'destroy']);
+
+Route::get('get-districts/{id}', [ApplicantController::class, 'getDistricts']);
+Route::get('get-upozilas/{id}', [ApplicantController::class, 'getUpozilas']);
 
 Route::middleware(['auth'])->group(function () {
 
@@ -42,6 +46,9 @@ Route::middleware(['auth'])->group(function () {
 
     // district
     Route::resource("/district", DistrictController::class);
+
+    // upozila
+    Route::resource("/upozila", UpozilaController::class);
 
     // all input
     Route::resource("/allinput", AllinputController::class);

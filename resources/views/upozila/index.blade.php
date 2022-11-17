@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
 @section('pagetitle')
-    Tag
+    Upozila
 @endsection
 
 @section('content')
 <div class="card card-hover shadow mb-4">
     <!-- Card Header - Dropdown -->
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <h6 class="m-0 font-weight-bold text-primary">Tag List</h6>
-        <a class="btn btn-primary btn-sm" href="{{url('tag/create')}}">
+        <h6 class="m-0 font-weight-bold text-primary">Upozila List</h6>
+        <a class="btn btn-primary btn-sm" href="{{url('upozila/create')}}">
             <i class="fas fa-plus fa-sm"></i>
             Add
         </a>
@@ -24,32 +24,31 @@
                 <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Details</th>
+                    <th>District</th>
+                    <th>Division</th>
                     <th width="180px">Action</th>
                 </tr>
-                @php
-                $sl = 1;
-                @endphp
-                @foreach ($alltag as $tag)
+                @foreach ($upozilas as $upozila)
                     <tr>
-                        <td>{{ $sl++ }}</td>
-                        <td>{{ $tag->name }}</td>
-                        <td>{{ $tag->detail }}</td>
+                        <td>{{ $upozila->id }}</td>
+                        <td>{{ $upozila->name }}</td>
+                        <td>{{ $upozila->district->name }}</td>
+                        <td>{{ $upozila->division->name }}</td>
                         <td class="d-flex justify-content-between">
-                            {!! Form::open(['method' => 'delete','route' => ['tag.destroy', $tag->id]]) !!}
+                            {!! Form::open(['method' => 'delete','route' => ['upozila.destroy', $upozila->id]]) !!}
                                 <button onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm btn-circle">Delete</button>
                             {!! Form::close() !!}
-                            <a href="{{url('tag/'.$tag->id.'/edit')}}" class="btn btn-primary btn-circle btn-sm" title="Edit">
+                            <a href="{{url('upozila/'.$upozila->id.'/edit')}}" class="btn btn-primary btn-circle btn-sm" title="Edit">
                                 Edit
                             </a>
-                            <a href="{{url('tag/'.$tag->id)}}" class="btn btn-primary btn-circle btn-sm" title="View">
+                            <a href="{{url('upozila/'.$upozila->id)}}" class="btn btn-primary btn-circle btn-sm" title="View">
                                 View
                             </a>
                         </td>
                     </tr>
                 @endforeach
             </table>
-            {!! $alltag->links() !!}
+            {!! $upozilas->links() !!}
         </div>
     </div>
 </div>

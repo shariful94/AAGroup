@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\District;
+use App\Models\Division;
 use App\Models\Upozila;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,8 @@ class UpozilaController extends Controller
      */
     public function index()
     {
-        //
+        $upozilas = Upozila::with(['district','division'])->paginate(20);
+        return view('upozila.index', compact('upozilas'));
     }
 
     /**
@@ -24,7 +27,9 @@ class UpozilaController extends Controller
      */
     public function create()
     {
-        //
+        $divisions = Division::pluck('name', 'id');
+        $districts = District::pluck('name', 'id');
+        return view('upozila.create')->with(compact('divisions'))->with(compact('districts'));
     }
 
     /**
@@ -35,7 +40,19 @@ class UpozilaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'district_id' => 'required',
+            'division_id' => 'required',
+        ]);
+
+        $upozila = new Upozila();
+        $upozila->name = $request->name;
+        $upozila->district_id = $request->district_id;
+        $upozila->division_id = $request->division_id;
+        $upozila->save();
+
+        return redirect()->route('upozila.index')->with('success', 'Upozila created successfully.');
     }
 
     /**
@@ -46,7 +63,7 @@ class UpozilaController extends Controller
      */
     public function show(Upozila $upozila)
     {
-        //
+        return view('upozila.show', compact('upozila'));
     }
 
     /**
@@ -57,7 +74,9 @@ class UpozilaController extends Controller
      */
     public function edit(Upozila $upozila)
     {
-        //
+        $divisions = Division::pluck('name', 'id');
+        $districts = District::pluck('name','id');
+        return view('upozila.edit',compact('upozila'))->with(compact('divisions'))->with(compact('districts'));
     }
 
     /**
@@ -69,7 +88,18 @@ class UpozilaController extends Controller
      */
     public function update(Request $request, Upozila $upozila)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'district_id' => 'required',
+            'division_id' => 'required',
+        ]);
+
+        $upozila->name = $request->name;
+        $upozila->district_id = $request->district_id;
+        $upozila->division_id = $request->division_id;
+        $upozila->save();
+
+        return redirect()->route('upozila.index')->with('success', 'Upozila updated successfully');
     }
 
     /**
@@ -80,6 +110,8 @@ class UpozilaController extends Controller
      */
     public function destroy(Upozila $upozila)
     {
-        //
+        $upozila->delete();
+
+        return redirect()->route('upozila.index')->with('success', 'Upozila deleted successfully');
     }
 }

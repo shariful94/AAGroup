@@ -24,4 +24,9 @@ class Upozila extends Model
     {
         return $this->belongsTo(District::class);
     }
+
+    public function applicants()
+    {
+        return $this->hasMany(Applicant::class);
+    }
 }
