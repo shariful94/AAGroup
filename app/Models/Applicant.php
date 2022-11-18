@@ -40,4 +40,9 @@ class Applicant extends Model
     {
         return $this->belongsTo(Upozila::class);
     }
+
+    public function educations()
+    {
+        return $this->hasMany(Education::class);
+    }
 }

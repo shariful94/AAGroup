@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>AA Group</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -51,13 +52,13 @@
                 <div class="form-group row mb-3">
                     <div class="col-sm-12 mb-3 mb-sm-0">
                     <p>Programming Language:</p>
-                    {!! Form::checkbox('language', 'php', false, ['class'=>'form-check-input', 'id' => 'php']) !!}
+                    {!! Form::checkbox('language', 'php', false, ['class'=>'form-check-input language', 'id' => 'php']) !!}
                     {!! Form::label('php', 'PHP', ['class' => 'form-label']) !!}
                 
-                    {!! Form::checkbox('language', 'python', false, ['class'=>'form-check-input', 'id' => 'python']) !!}
+                    {!! Form::checkbox('language', 'python', false, ['class'=>'form-check-input language', 'id' => 'python']) !!}
                     {!! Form::label('python', 'Python', ['class' => 'form-label']) !!}
                 
-                    {!! Form::checkbox('language', 'java', false, ['class'=>'form-check-input', 'id' => 'java']) !!}
+                    {!! Form::checkbox('language', 'java', false, ['class'=>'form-check-input language', 'id' => 'java']) !!}
                     {!! Form::label('java', 'Java', ['class' => 'form-label']) !!}
                     </div>
                 </div>
@@ -65,18 +66,18 @@
                     <p>Educational Qualification:</p>
                     <div class="col-sm-3 mb-3 mb-sm-0">
                         {!! Form::label('exam', 'Exam', ['class' => 'form-label']) !!}
-                        {!! Form::select('exam', 
+                        {!! Form::select('exam[]', 
                         [
                             'ssc' => 'SSC',
                             'hsc' => 'HSC',
                             'honours' => 'Honours',
                             'masters' => 'Masters',
                         ]
-                        , null, ['required', 'class'=>'form-control', 'id'=>'exam', 'placeholder'=>'Select']) !!}   
+                        , null, ['required', 'class'=>'form-control exam', 'placeholder'=>'Select']) !!}   
                     </div>
                     <div class="col-sm-3 mb-3 mb-sm-0">
                         {!! Form::label('university', 'University', ['class' => 'form-label']) !!}
-                        {!! Form::select('university', 
+                        {!! Form::select('university[]', 
                         [
                             'du' => 'Dhaka University',
                             'ru' => 'Rajshahi University',
@@ -84,11 +85,11 @@
                             'cu' => 'Chittagong University',
                             'nu' => 'National University',
                         ]
-                        , null, ['required', 'class'=>'form-control', 'id'=>'university', 'placeholder'=>'Select']) !!}   
+                        , null, ['required', 'class'=>'form-control university', 'placeholder'=>'Select']) !!}   
                     </div>
                     <div class="col-sm-2 mb-3 mb-sm-0">
                         {!! Form::label('board', 'Board', ['class' => 'form-label']) !!}
-                        {!! Form::select('board', 
+                        {!! Form::select('board[]', 
                         [
                             'dha' => 'Dhaka',
                             'raj' => 'Rajshahi',
@@ -99,56 +100,56 @@
                             'syl' => 'Sylhet',
                             'jess' => 'Jessore',
                         ]
-                        , null, ['required', 'class'=>'form-control', 'id'=>'board', 'placeholder'=>'Select']) !!}   
+                        , null, ['required', 'class'=>'form-control board', 'placeholder'=>'Select']) !!}   
                     </div>
                     <div class="col-sm-2 mb-3 mb-sm-0">
                         {!! Form::label('gpa', 'GPA', ['class' => 'form-label']) !!}
-                        {!! Form::text('gpa', null, ['required', 'class'=>'form-control', 'id'=>'result', 'placeholder'=>'gpa']) !!}
+                        {!! Form::text('gpa[]', null, ['required', 'class'=>'form-control gpa', 'placeholder'=>'gpa']) !!}
                     </div>
                     <div class="col-sm-2">
                         {!! Form::label('action', 'Action', ['class' => 'form-label']) !!}
-                        <button class="btn btn-primary" id="addMoreButton">+ Add More</button>
+                        <a class="btn btn-primary" id="addMoreButton">+ Add More</a>
                     </div>
                 </div>
                 <div id="addMore"></div>
-                <div class="form-group row mb-3">
+                {{-- <div class="form-group row mb-3">
                     <div class="col-sm-6 mb-3 mb-sm-0">
                         {!! Form::label('photo', 'Applicant Photo', ['class' => 'form-label']) !!}
-                        {!! Form::file('photo', null, ['required', 'class'=>'form-control', 'id'=>'photo', 'placeholder'=>'Photo']) !!}   
+                        {!! Form::file('photo', null, ['required', 'class'=>'form-control', 'id'=>'photo', 'placeholder'=>'Photo', 'accept'=>"image/x-png,image/gif,image/jpeg"]) !!}   
                     </div>
                     <div class="col-sm-6">
                         {!! Form::label('cv', 'Applicant CV', ['class' => 'form-label']) !!}
-                        {!! Form::file('cv', null, ['required', 'class'=>'form-control', 'id'=>'cv', 'placeholder'=>'CV']) !!}
+                        {!! Form::file('cv', null, ['required', 'class'=>'form-control', 'id'=>'cv', 'placeholder'=>'CV', 'accept'=>"application/pdf,application/msword"]) !!}
                     </div>
-                </div>
+                </div> --}}
                 <div class="form-group row mb-3">
                     <div class="col-sm-12 mt-3 mb-sm-0">
                         <p>Training:</p>
-                        {{ Form::radio('training', 'yes', '', ['class'=>'form-check-input', 'id' => 'yes']) }}
-                        {{ Form::label('yes', 'Yes', ['class' => 'form-check-label']) }}
+                        {{ Form::radio('training', 'yes', '', ['class'=>'form-check-input training', 'id' => 'yes']) }}
+                        {{ Form::label('yes', 'Yes', ['class' => 'form-check-labe ']) }}
                     
-                        {{ Form::radio('training', 'no', '', ['class'=>'form-check-input', 'id' => 'no']) }}
+                        {{ Form::radio('training', 'no', '', ['class'=>'form-check-input training', 'id' => 'no']) }}
                         {{ Form::label('no', 'No', ['class' => 'form-check-label']) }}
                     </div>
                 </div>
                 <div class="form-group row mb-3" id="training">
                     <div class="col-sm-5 mb-3 mb-sm-0">
                         {!! Form::label('training_name', 'Training Name', ['class' => 'form-label']) !!}
-                        {!! Form::text('training_name', null, ['required', 'class'=>'form-control', 'id'=>'training_name', 'placeholder'=>'Training Name']) !!}
+                        {!! Form::text('training_name', null, ['required', 'class'=>'form-control', 'placeholder'=>'Training Name']) !!}
                     </div>
                     <div class="col-sm-5 mb-3 mb-sm-0">
                         {!! Form::label('training_details', 'Training Details', ['class' => 'form-label']) !!}
-                        {!! Form::text('training_details', null, ['required', 'class'=>'form-control', 'id'=>'training_details', 'placeholder'=>'Training Details']) !!}
+                        {!! Form::text('training_details', null, ['required', 'class'=>'form-control', 'placeholder'=>'Training Details']) !!}
                     </div>
                     <div class="col-sm-2">
                         {!! Form::label('action', 'Action', ['class' => 'form-label']) !!}
-                        <button class="btn btn-primary" id="addMoreTraining">+ Add More</button>
+                        <a class="btn btn-primary" id="addMoreTraining">+ Add More</a>
                     </div>
                 </div>
                 <div id="addTraining"></div>
 
                 <div class="form-group">
-                    {!! Form::submit('Submit Form', ['class'=>'btn btn-info btn-block']) !!}
+                    {!! Form::submit('Submit Form', ['class'=>'btn btn-info btn-block', 'id'=>'submit']) !!}
                 </div>
                 {!! Form::close() !!}
             </div>
@@ -157,6 +158,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{url('assets/js/jquery-3.6.0.min.js')}}"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
     <script>
         $(document).ready(function(){
             function createselect(ob){
@@ -221,7 +229,7 @@
                                 'honours' => 'Honours',
                                 'masters' => 'Masters',
                             ]
-                            , null, ['required', 'class'=>'form-control', 'id'=>'exam', 'placeholder'=>'Select']) !!}
+                            , null, ['required', 'class'=>'form-control exam', 'placeholder'=>'Select']) !!}
                         </div>
                         <div class="col-sm-3 mb-3 mb-sm-0">
                             {!! Form::select('university[]', 
@@ -232,7 +240,7 @@
                                 'cu' => 'Chittagong University',
                                 'nu' => 'National University',
                             ]
-                            , null, ['required', 'class'=>'form-control', 'id'=>'university', 'placeholder'=>'Select']) !!}   
+                            , null, ['required', 'class'=>'form-control university', 'placeholder'=>'Select']) !!}   
                         </div>
                         <div class="col-sm-2 mb-3 mb-sm-0">
                             {!! Form::select('board[]', 
@@ -246,10 +254,10 @@
                                 'syl' => 'Sylhet',
                                 'jess' => 'Jessore',
                             ]
-                            , null, ['required', 'class'=>'form-control', 'id'=>'board', 'placeholder'=>'Select']) !!}   
+                            , null, ['required', 'class'=>'form-control board', 'placeholder'=>'Select']) !!}   
                         </div>
                         <div class="col-sm-2 mb-3 mb-sm-0">
-                            {!! Form::text('gpa[]', null, ['required', 'class'=>'form-control', 'id'=>'result', 'placeholder'=>'gpa']) !!}
+                            {!! Form::text('gpa[]', null, ['required', 'class'=>'form-control gpa', 'placeholder'=>'gpa']) !!}
                         </div>
                         <div class="col-sm-2">
                             <button class="btn btn-danger remove" id="${i}">- Remove</button>
@@ -280,10 +288,10 @@
                 $("#addTraining").append(`
                     <div class="form-group row mb-3" id="row${i}">
                         <div class="col-sm-5 mb-3 mb-sm-0">
-                        {!! Form::text('training_name', null, ['required', 'class'=>'form-control', 'id'=>'training_name', 'placeholder'=>'Training Name']) !!}
+                        {!! Form::text('training_name', null, ['required', 'class'=>'form-control', 'placeholder'=>'Training Name']) !!}
                     </div>
                     <div class="col-sm-5 mb-3 mb-sm-0">
-                        {!! Form::text('training_details', null, ['required', 'class'=>'form-control', 'id'=>'training_details', 'placeholder'=>'Training Details']) !!}
+                        {!! Form::text('training_details', null, ['required', 'class'=>'form-control', 'placeholder'=>'Training Details']) !!}
                     </div>
                         <div class="col-sm-2">
                             <button class="btn btn-danger remove" id="${i}">- Remove</button>
@@ -296,6 +304,72 @@
                 $("#row"+button_id+"").remove();
             });
         });
+
+        // education qualification table value insert into database
+        $(document).ready(function(){
+            $("#submit").click(function(){
+                // checkbox value get
+                var language = [];
+                $.each($("input[name='language']:checked"), function(){
+                    language.push($(this).val());
+                });
+                // checkbox value get
+                var training = [];
+                $.each($("input[name='training']:checked"), function(){
+                    training.push($(this).val());
+                });
+                // alert($("#division_id").val());
+                var id = [];
+                var exam = [];
+                var university = [];
+                var board = [];
+                var gpa = [];
+                $('.id').each(function(){
+                    id.push($(this).val());
+                });
+                $('.exam').each(function(){
+                    exam.push($(this).val());
+                });
+                $('.university').each(function(){
+                    university.push($(this).val());
+                });
+                $('.board').each(function(){
+                    board.push($(this).val());
+                });
+                $('.gpa').each(function(){
+                    gpa.push($(this).val());
+                });
+                // alert(gpa);
+                $.ajax({
+                    url: "{{url('education-qualification')}}",
+                    type: "POST",
+                    data: {
+                        name : $("#name").val(),
+                        email : $("#email").val(),
+                        division : $("#division_id").val(),
+                        district : $("#district_id").val(),
+                        upozila : $("#upozila_id").val(),
+                        address : $("#address").val(),
+                        language : language,
+                        // photo : $("#photo").val(),
+                        // cv : $("#cv").val(),
+                        training : training,
+                        exam:exam,
+                        university:university,
+                        board:board,
+                        gpa:gpa,
+                    },
+                    success: function(response){
+                        console.log(response);
+                        location.reload();
+                    },
+                    error: function(response){
+                        console.log(response);
+                    }
+                });
+            });
+        });
+
 
     </script>
 </body>

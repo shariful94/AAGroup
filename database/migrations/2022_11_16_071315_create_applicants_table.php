@@ -25,10 +25,6 @@ return new class extends Migration
             $table->foreign('upozila_id')->references('id')->on('upozilas')->onDelete('cascade');
             $table->string('address');
             $table->string('language');
-            $table->string('exam');
-            $table->string('university');
-            $table->string('board');
-            $table->decimal('gpa', 3, 2);
             $table->string('photo');
             $table->string('cv');
             $table->string('training');

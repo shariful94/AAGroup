@@ -32,6 +32,11 @@ Route::post('applicant', [ApplicantController::class, 'store'])->name('applicant
 Route::get('get-districts/{id}', [ApplicantController::class, 'getDistricts']);
 Route::get('get-upozilas/{id}', [ApplicantController::class, 'getUpozilas']);
 
+// education qualification json value post on database
+Route::post('education-qualification', [ApplicantController::class, 'education']);
+
+
+
 Route::middleware(['auth'])->group(function () {
 
     //dashboard
